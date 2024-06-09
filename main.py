@@ -9,7 +9,7 @@ from datetime import datetime
 
 load_dotenv()
 
-nltk.download('punkt')
+nltk.data.path.append(os.path.join(os.path.dirname(__file__), 'nltk_data'))
 
 app = Flask(__name__)
 Bootstrap(app)
