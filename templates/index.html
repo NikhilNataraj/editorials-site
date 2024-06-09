@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.104.2">
+    <title>The Editorials Website</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/blog/">
+    <link href="{{ url_for('static', filename='css/styles.css') }}" rel="stylesheet">
+
+<link href="https://getbootstrap.com/docs/5.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+
+
+
+    
+    <!-- Custom fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Playfair&#43;Display:700,900&amp;display=swap" rel="stylesheet">
+    <!-- Custom styles -->
+    <link href="https://getbootstrap.com/docs/5.2/examples/blog/blog.css" rel="stylesheet">
+  </head>
+  <body>
+    
+<div class="container">
+  <header class="blog-header lh-1 py-3">
+    <div class="row flex-nowrap justify-content-between align-items-center">
+      <div class="col-5 text-center">
+        <a class="blog-header-logo text-dark" href="{{ url_for('home') }}">The Editorials Website</a>
+      </div>
+    </div>
+  </header>
+</div>
+
+<main class="container">
+  <div class="p-4 p-md-5 mb-4 rounded text-bg-dark">
+    <div class="col-md-20 px-0">
+      <h1 class="display-4 fst-italic">{{ titles[0] }}</h1>
+      <p class="lead my-3 char-limit main-art-char-lim">{{ articles[0] }}</p>
+      <p class="lead mb-0">
+        <a href="{{ url_for('show_article', index=0) }}" class="text-white fw-bold">
+          <button type="button" class="btn btn-light">Continue reading...</button>
+        </a>
+      </p>
+    </div>
+  </div>
+
+  <div class="row mb-2">
+    <div class="col-md-6">
+      <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+        <div class="col p-4 d-flex flex-column position-static">
+          <strong class="d-inline-block mb-2 text-primary">{{ sources[1] }}</strong>
+          <h3 class="mb-0">{{ titles[1] }}</h3>
+          <p class="card-text mb-auto char-limit snippet">{{ articles[1] }}</p>
+          <a href="{{ url_for('show_article', index=1) }}" class="stretched-link">
+            <button type="button" class="btn btn-dark">Continue reading...</button>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+        <div class="col p-4 d-flex flex-column position-static">
+          <strong class="d-inline-block mb-2 text-success">{{ sources[2] }}</strong>
+          <h3 class="mb-0">{{ titles[2] }}</h3>
+          <p class="mb-auto char-limit snippet">{{ articles[2] }}</p>
+          <a href="{{ url_for('show_article', index=2) }}" class="stretched-link">
+            <button type="button" class="btn btn-dark">Continue reading...</button>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row g-5">
+    <div class="col-md-8">
+      <h3 class="pb-4 mb-4 fst-italic border-bottom">
+        From the Internet
+      </h3>
+
+      {% for index in range(3, titles|length) %}
+      <article class="blog-post">
+        <h2 class="mb-1"> <a style="text-decoration: none; color: inherit;" href="{{ url_for('show_article', index=index) }}"> {{ titles[index] }} </a> </h2>
+        <p class="char-limit">{{ articles[index] }}</p>
+        <p class="blog-post-meta">{{ sources[index] }}</p>
+        <hr>
+      </article>
+      {% endfor %}
+    </div>
+
+    <div class="col-md-4">
+      <div class="position-sticky" style="top: 2rem;">
+        <div class="p-4 mb-3 bg-light rounded">
+          <h4 class="fst-italic">About</h4>
+          <p class="mb-0">Welcome to <strong>The Editorials Website</strong>! Here, you'll find a curated selection of thoughtful perspectives and insightful opinions.
+            It's just me behind the scenes, handpicking the best articles for your reading pleasure.
+            So, take a moment to browse, relax, and explore the world of editorials at your own pace.
+            No frills or fuss—just good old-fashioned reading material. Enjoy your stay!</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <nav class="blog-pagination" aria-label="Pagination">
+        <a class="btn btn-outline-primary rounded-pill" href="{{ url_for('older_articles')}}">Older</a>
+  </nav>
+
+</main>
+
+<footer class="blog-footer">
+  <p>
+    <a href="#"><button type="button" class="btn btn-dark">Back to
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-up" viewBox="0 0 16 16">
+      <path fill-rule="evenodd" d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5"/>
+    </svg>
+    </button></a>
+  </p>
+  <p>Copyright © {{ year }}, <a class="text-black stretched-link fw-bold" href="https://nikhil-natarajan.vercel.app/" >Nikhil Natarajan</a></p>
+  <p>Article Sources:
+    <a class="text-black stretched-link" href="https://timesofindia.indiatimes.com/blogs/toi-editorials/">Times of India</a> &
+    <a class="text-black stretched-link" href="https://www.thehindu.com/opinion/editorial/">The Hindu</a>.</p>
+  <p>Blog built using template of <a class="text-black stretched-link" href="https://getbootstrap.com/">Bootstrap</a>
+    by <a class="text-black stretched-link" href="https://twitter.com/mdo">@mdo</a>.</p>
+</footer>
+
+  </body>
+</html>
