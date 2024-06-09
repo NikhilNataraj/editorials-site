@@ -3,22 +3,13 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
-    <meta name="generator" content="Hugo 0.104.2">
+
     <title>The Editorials Website</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/blog/">
     <link href="{{ url_for('static', filename='css/styles.css') }}" rel="stylesheet">
-
-<link href="https://getbootstrap.com/docs/5.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-
-
-
-    
-    <!-- Custom fonts -->
+    <link href="https://getbootstrap.com/docs/5.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Playfair&#43;Display:700,900&amp;display=swap" rel="stylesheet">
-    <!-- Custom styles -->
     <link href="https://getbootstrap.com/docs/5.2/examples/blog/blog.css" rel="stylesheet">
   </head>
   <body>
@@ -36,7 +27,7 @@
 <main class="container">
   <div class="p-4 p-md-5 mb-4 rounded text-bg-dark">
     <div class="col-md-20 px-0">
-      <h1 class="display-4 fst-italic">{{ titles[0] }}</h1>
+      <h1 class="display-4 fst-italic"><a href="{{ url_for('show_article', index=0) }}" style="text-decoration: none; color: inherit;">{{ titles[0] }}</a> </h1>
       <p class="lead my-3 char-limit main-art-char-lim">{{ articles[0] }}</p>
       <p class="lead mb-0">
         <a href="{{ url_for('show_article', index=0) }}" class="text-white fw-bold">
@@ -117,12 +108,11 @@
     </svg>
     </button></a>
   </p>
-  <p>Copyright © {{ year }}, <a class="text-black stretched-link fw-bold" href="https://nikhil-natarajan.vercel.app/" >Nikhil Natarajan</a></p>
+  <p>Copyright © {{ year }}, <a class="text-black fw-bold" href="https://nikhil-natarajan.vercel.app/" >Nikhil Natarajan</a></p>
   <p>Article Sources:
-    <a class="text-black stretched-link" href="https://timesofindia.indiatimes.com/blogs/toi-editorials/">Times of India</a> &
-    <a class="text-black stretched-link" href="https://www.thehindu.com/opinion/editorial/">The Hindu</a>.</p>
-  <p>Blog built using template of <a class="text-black stretched-link" href="https://getbootstrap.com/">Bootstrap</a>
-    by <a class="text-black stretched-link" href="https://twitter.com/mdo">@mdo</a>.</p>
+    <a class="text-black" href="https://timesofindia.indiatimes.com/blogs/toi-editorials/">Times of India</a> &
+    <a class="text-black" href="https://www.thehindu.com/opinion/editorial/">The Hindu</a>.</p>
+  <p>Blog built using template by <a class="text-black" href="https://getbootstrap.com/">Bootstrap</a>
 </footer>
 
   </body>
