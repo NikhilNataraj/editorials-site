@@ -29,7 +29,7 @@ def home():
     all_articles = list(reversed([truncate_text(article["content"]) for article in data][-7:]))
     all_sources = list(reversed([article["source"] for article in data][-7:]))
     return render_template("index.html", titles=all_titles,
-                           articles=all_articles, sources=all_sources, year=datetime.now().year)
+                           articles=all_articles, sources=all_sources, year=datetime.now().year, total=len(data))
 
 
 def short_paragraphs(text, max_length=200):
