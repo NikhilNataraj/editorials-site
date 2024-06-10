@@ -17,7 +17,7 @@ Bootstrap(app)
 API_URL = os.getenv("API_URL")
 
 
-def truncate_text(text, max_length=130):
+def truncate_text(text, max_length=120):
     return text if len(text) <= max_length else text[:max_length] + '...'
 
 
@@ -25,9 +25,9 @@ def truncate_text(text, max_length=130):
 def home():
     response = requests.get(f"{API_URL}/api/articles")
     data = response.json()
-    all_titles = [article["title"] for article in data][-7:]
-    all_articles = [truncate_text(article["content"]) for article in data][-7:]
-    all_sources = [article["source"] for article in data][-7:]
+    all_titles = list(reversed([article["title"] for article in data][-7:]))
+    all_articles = list(reversed([truncate_text(article["content"]) for article in data][-7:]))
+    all_sources = list(reversed([article["source"] for article in data][-7:]))
     return render_template("index.html", titles=all_titles,
                            articles=all_articles, sources=all_sources, year=datetime.now().year)
 
@@ -66,9 +66,9 @@ def show_article(index):
 def older_articles():
     response = requests.get(f"{API_URL}/api/articles")
     data = response.json()
-    all_titles = [article["title"] for article in data][:-7]
-    all_articles = [truncate_text(article["content"]) for article in data][:-7]
-    all_sources = [article["source"] for article in data][:-7]
+    all_titles = list(reversed([article["title"] for article in data][:-7]))
+    all_articles = list(reversed([truncate_text(article["content"]) for article in data][:-7]))
+    all_sources = list(reversed([article["source"] for article in data][:-7]))
     return render_template("older.html", titles=all_titles,
                            articles=all_articles, sources=all_sources, year=datetime.now().year)
 
