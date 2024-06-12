@@ -41,11 +41,12 @@
   <div class="p-4 p-md-5 mb-4 rounded">
     <div class="col-md-20 px-0">
       <h1 class="display-4 fst-italic">{{ title }}</h1>
-      <div class="mb-1 text-muted">SOURCE: <strong>{{ source }}</strong></div>
+      <div class="mb-1 text-muted">{{ date }}</div>
       {% for para in article %}
         <p class="lead my-3">{{ para }}</p>
       {% endfor %}
     </div>
+    <div class="mb-1 text-muted">SOURCE: <strong>{{ source }}</strong></div>
   </div>
 
   <nav class="blog-pagination" aria-label="Pagination">

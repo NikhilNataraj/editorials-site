@@ -41,8 +41,9 @@
     <div class="col-md-6">
       <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
         <div class="col p-4 d-flex flex-column position-static">
-          <strong class="d-inline-block mb-2 text-primary">{{ sources[1] }}</strong>
+          <strong class="d-inline-block mb-1 text-primary">{{ sources[1] }}</strong>
           <h3 class="mb-0">{{ titles[1] }}</h3>
+          <div class="mb-1 text-muted">{{ dates[1] }}</div>
           <p class="card-text mb-auto char-limit snippet">{{ articles[1] }}</p>
           <a href="{{ url_for('show_article', index=total-2) }}" class="stretched-link">
             <button type="button" class="btn btn-dark">Continue reading...</button>
@@ -54,8 +55,9 @@
     <div class="col-md-6">
       <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
         <div class="col p-4 d-flex flex-column position-static">
-          <strong class="d-inline-block mb-2 text-success">{{ sources[2] }}</strong>
+          <strong class="d-inline-block mb-1 text-success">{{ sources[2] }}</strong>
           <h3 class="mb-0">{{ titles[2] }}</h3>
+          <div class="mb-1 text-muted">{{ dates[2] }}</div>
           <p class="mb-auto char-limit snippet">{{ articles[2] }}</p>
           <a href="{{ url_for('show_article', index=total-3) }}" class="stretched-link">
             <button type="button" class="btn btn-dark">Continue reading...</button>
@@ -74,6 +76,7 @@
       {% for index in range(3, titles|length) %}
       <article class="blog-post">
         <h2 class="mb-1"> <a style="text-decoration: none; color: inherit;" href="{{ url_for('show_article', index=total-index-1) }}"> {{ titles[index] }} </a> </h2>
+        <div class="mb-1 text-muted">{{ dates[index] }}</div>
         <p class="char-limit">{{ articles[index] }}</p>
         <p class="blog-post-meta">{{ sources[index] }}</p>
         <hr>
@@ -82,7 +85,7 @@
     </div>
 
     <div class="col-md-4">
-      <div class="position-sticky" style="top: 2rem;">
+      <div style="top: 2rem;">
         <div class="p-4 mb-3 bg-light rounded">
           <h4 class="fst-italic">About</h4>
           <p class="mb-0">Welcome to <strong>The Editorials Website</strong>! Here, you'll find a curated selection of thoughtful perspectives and insightful opinions.
@@ -91,6 +94,36 @@
             No frills or fuss—just good old-fashioned reading material. Enjoy your stay!</p>
         </div>
       </div>
+      <div class="modal-content rounded-4 shadow">
+      <div class="modal-body p-3">
+        <h2 class="fw-bold mb-0">J.F.Q</h2>
+        <hr>
+        <ul class="d-grid gap-4 my-5 list-unstyled">
+          <li class="d-flex gap-4">
+            <svg class="bi text-muted flex-shrink-0" width="48" height="48"><use xlink:href="#grid-fill"></use></svg>
+            <div>
+              <h5 class="mb-0">Joke</h5>
+              {{ joke }}
+            </div>
+          </li>
+          <li class="d-flex gap-4">
+            <svg class="bi text-warning flex-shrink-0" width="48" height="48"><use xlink:href="#bookmark-star"></use></svg>
+            <div>
+              <h5 class="mb-0">Fact</h5>
+              {{ fact }}
+            </div>
+          </li>
+          <li class="d-flex gap-4">
+            <svg class="bi text-primary flex-shrink-0" width="48" height="48"><use xlink:href="#film"></use></svg>
+            <div>
+              <h5 class="mb-0">Quote</h5>
+              {{ quote }}
+              <div class="mb-1 text-muted">-{{ author }}</div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
     </div>
   </div>
 
