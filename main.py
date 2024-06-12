@@ -21,8 +21,37 @@ def truncate_text(text, max_length=120):
     return text if len(text) <= max_length else text[:max_length] + '...'
 
 
+JOKE = "Why don't scientists trust atoms? Because they make up everything!"
+FACT = "Honey never spoils. Archaeologists have found pots of honey in ancient Egyptian tombs that are over 3,000 years old and still perfectly edible."
+QUOTE = "The only way to do great work is to love what you do."
+AUTHOR = "Steve Jobs"
+
+
+@app.route("/api/cron")
+def fetch_jfq():
+    global JOKE, FACT, QUOTE, AUTHOR
+
+    j_api_url = f'{os.getenv("JFQ_API_URL")}/jokes?limit=1'
+    api_key = os.getenv("JFQ_API_KEY")
+    joke_response = requests.get(j_api_url, headers={'X-Api-Key': api_key})
+    joke = joke_response.json()[0]
+    JOKE = joke["joke"]
+
+    f_api_url = f'{os.getenv("JFQ_API_URL")}/facts'
+    fact_response = requests.get(f_api_url, headers={'X-Api-Key': api_key})
+    fact = fact_response.json()[0]
+    FACT = fact["fact"]
+
+    q_api_url = f'{os.getenv("JFQ_API_URL")}/quotes'
+    quote_response = requests.get(q_api_url, headers={'X-Api-Key': api_key})
+    quote = quote_response.json()[0]
+    AUTHOR = quote["author"]
+    QUOTE = quote["quote"]
+
+
 @app.route("/")
 def home():
+    global JOKE, FACT, QUOTE, AUTHOR
     response = requests.get(f"{API_URL}/api/articles")
     data = response.json()
     all_titles = list(reversed([article["title"] for article in data][-7:]))
@@ -30,26 +59,9 @@ def home():
     all_sources = list(reversed([article["source"] for article in data][-7:]))
     all_dates = list(reversed([article["date"] for article in data][-7:]))
 
-    j_api_url = f'{os.getenv("JFQ_API_URL")}/jokes?limit=1'
-    api_key = os.getenv("JFQ_API_KEY")
-    joke_response = requests.get(j_api_url, headers={'X-Api-Key': api_key})
-    joke = joke_response.json()[0]
-    joke = joke["joke"]
-
-    f_api_url = f'{os.getenv("JFQ_API_URL")}/facts'
-    fact_response = requests.get(f_api_url, headers={'X-Api-Key': api_key})
-    fact = fact_response.json()[0]
-    fact = fact["fact"]
-
-    q_api_url = f'{os.getenv("JFQ_API_URL")}/quotes'
-    quote_response = requests.get(q_api_url, headers={'X-Api-Key': api_key})
-    quote = quote_response.json()[0]
-    author = quote["author"]
-    quote = quote["quote"]
-
     return render_template("index.html", titles=all_titles,
                            articles=all_articles, sources=all_sources, dates=all_dates,
-                           joke=joke, fact=fact, quote=quote, author=author,
+                           joke=JOKE, fact=FACT, quote=QUOTE, author=AUTHOR,
                            year=datetime.now().year, total=len(data))
 
 
