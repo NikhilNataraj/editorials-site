@@ -27,10 +27,10 @@
 <main class="container">
   <div class="p-4 p-md-5 mb-4 rounded text-bg-dark">
     <div class="col-md-20 px-0">
-      <h1 class="display-4 fst-italic"><a href="{{ url_for('show_article', index=total-1) }}" style="text-decoration: none; color: inherit;">{{ titles[0] }}</a> </h1>
+      <h1 class="display-4 fst-italic"><a href="{{ url_for('show_article', title=titles[0]) }}" style="text-decoration: none; color: inherit;">{{ titles[0] }}</a> </h1>
       <p class="lead my-3 char-limit main-art-char-lim">{{ articles[0] }}</p>
       <p class="lead mb-0">
-        <a href="{{ url_for('show_article', index=total-1) }}" class="text-white fw-bold">
+        <a href="{{ url_for('show_article', title=titles[0]) }}" class="text-white fw-bold">
           <button type="button" class="btn btn-light">Continue reading...</button>
         </a>
       </p>
@@ -45,7 +45,7 @@
           <h3 class="mb-0">{{ titles[1] }}</h3>
           <div class="mb-1 text-muted">{{ dates[1] }}</div>
           <p class="card-text mb-auto char-limit snippet">{{ articles[1] }}</p>
-          <a href="{{ url_for('show_article', index=total-2) }}" class="stretched-link">
+          <a href="{{ url_for('show_article', title=titles[1]) }}" class="stretched-link">
             <button type="button" class="btn btn-dark">Continue reading...</button>
           </a>
         </div>
@@ -59,7 +59,7 @@
           <h3 class="mb-0">{{ titles[2] }}</h3>
           <div class="mb-1 text-muted">{{ dates[2] }}</div>
           <p class="mb-auto char-limit snippet">{{ articles[2] }}</p>
-          <a href="{{ url_for('show_article', index=total-3) }}" class="stretched-link">
+          <a href="{{ url_for('show_article', title=titles[2]) }}" class="stretched-link">
             <button type="button" class="btn btn-dark">Continue reading...</button>
           </a>
         </div>
@@ -75,7 +75,7 @@
 
       {% for index in range(3, titles|length) %}
       <article class="blog-post">
-        <h2 class="mb-1"> <a style="text-decoration: none; color: inherit;" href="{{ url_for('show_article', index=total-index-1) }}"> {{ titles[index] }} </a> </h2>
+        <h2 class="mb-1"> <a style="text-decoration: none; color: inherit;" href="{{ url_for('show_article', title=titles[index]) }}"> {{ titles[index] }} </a> </h2>
         <div class="mb-1 text-muted">{{ dates[index] }}</div>
         <p class="char-limit">{{ articles[index] }}</p>
         <p class="blog-post-meta">{{ sources[index] }}</p>

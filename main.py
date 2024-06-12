@@ -1,6 +1,7 @@
 import os
 import nltk
 import requests
+from urllib.parse import quote
 from flask import Flask, render_template
 from flask_bootstrap import Bootstrap
 from nltk.tokenize import sent_tokenize
@@ -22,7 +23,8 @@ def truncate_text(text, max_length=120):
 
 
 JOKE = "Why don't scientists trust atoms? Because they make up everything!"
-FACT = "Honey never spoils. Archaeologists have found pots of honey in ancient Egyptian tombs that are over 3,000 years old and still perfectly edible."
+FACT = ("Honey never spoils. Archaeologists have found pots of honey in ancient Egyptian tombs that are over "
+        "3,000 years old and still perfectly edible.")
 QUOTE = "The only way to do great work is to love what you do."
 AUTHOR = "Steve Jobs"
 
@@ -83,12 +85,12 @@ def short_paragraphs(text, max_length=200):
     return paragraphs
 
 
-@app.route("/article/<index>")
-def show_article(index):
-    index = int(index)
-    response = requests.get(f"{API_URL}/api/article/{index}")
+@app.route("/article/<title>")
+def show_article(title):
+    print(f"{API_URL}/api/article/{quote(title)}")
+    response = requests.get(f"{API_URL}/api/article/{quote(title)}")
     data = response.json()
-    title = data["title"]
+    print(data)
     content = short_paragraphs(data["content"])
     source = data["source"]
     date = data["date"]
