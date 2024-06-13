@@ -1,16 +1,3 @@
-@media (min-width: 768px) {
-    .card-heading {
-    width: 15ch;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    }
-
-    .snippet {
-        padding: 1%
-    }
-}
-
 .bi {
     vertical-align: -.125em;
     fill: currentColor;
@@ -27,7 +14,6 @@
 }
 
 .card-heading {
-    width: 27ch;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
