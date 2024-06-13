@@ -22,22 +22,18 @@ def truncate_text(text, max_length=100):
 
 
 def fetch_jfq():
-    j_api_url = f'{os.getenv("JFQ_API_URL")}/jokes?limit=1'
-    api_key = os.getenv("JFQ_API_KEY")
-    joke_response = requests.get(j_api_url, headers={'X-Api-Key': api_key})
-    joke = joke_response.json()[0]
-    JOKE = joke["joke"]
+    joke_response = requests.get(os.getenv("JOKE_API_URL"))
+    joke = joke_response.json()
+    JOKE = joke["setup"] + "\n" + joke["punchline"]
 
-    f_api_url = f'{os.getenv("JFQ_API_URL")}/facts'
-    fact_response = requests.get(f_api_url, headers={'X-Api-Key': api_key})
-    fact = fact_response.json()[0]
-    FACT = fact["fact"]
+    fact_response = requests.get(os.getenv("FACT_API_URL"))
+    fact = fact_response.json()
+    FACT = fact["text"]
 
-    q_api_url = f'{os.getenv("JFQ_API_URL")}/quotes'
-    quote_response = requests.get(q_api_url, headers={'X-Api-Key': api_key})
-    quote = quote_response.json()[0]
-    AUTHOR = quote["author"]
-    QUOTE = quote["quote"]
+    quote_response = requests.get(os.getenv("QUOTE_API_URL"))
+    quote = quote_response.json()["data"][0]
+    AUTHOR = quote["quoteAuthor"]
+    QUOTE = quote["quoteText"]
 
     return {"JOKE": JOKE, "FACT": FACT, "AUTHOR": AUTHOR, "QUOTE": QUOTE}
 
