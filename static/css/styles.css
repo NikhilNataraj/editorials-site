@@ -59,7 +59,7 @@
     white-space: normal;
 }
 
-.card-title {
+.card-heading {
     width: 27ch;
     overflow: hidden;
     text-overflow: ellipsis;
