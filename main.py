@@ -22,7 +22,8 @@ def truncate_text(text, max_length=120):
 
 
 JOKE = "Why don't scientists trust atoms? Because they make up everything!"
-FACT = "Honey never spoils. Archaeologists have found pots of honey in ancient Egyptian tombs that are over 3,000 years old and still perfectly edible."
+FACT = ("Honey never spoils. Archaeologists have found pots of honey in ancient Egyptian tombs that are "
+        "over 3,000 years old and still perfectly edible.")
 QUOTE = "The only way to do great work is to love what you do."
 AUTHOR = "Steve Jobs"
 
@@ -53,16 +54,17 @@ def fetch_jfq():
 def home():
     global JOKE, FACT, QUOTE, AUTHOR
     response = requests.get(f"{API_URL}/api/articles")
-    data = response.json()
-    all_titles = list(reversed([article["title"] for article in data][-7:]))
-    all_articles = list(reversed([truncate_text(article["content"]) for article in data][-7:]))
-    all_sources = list(reversed([article["source"] for article in data][-7:]))
-    all_dates = list(reversed([article["date"] for article in data][-7:]))
+    data = sort_acc_to_date(response.json())
+    all_ids = [article["id"] for article in data][:7]
+    all_titles = [article["title"] for article in data][:7]
+    all_articles = [truncate_text(article["content"]) for article in data][:7]
+    all_sources = [article["source"] for article in data][:7]
+    all_dates = [article["date"] for article in data][:7]
 
-    return render_template("index.html", titles=all_titles,
+    return render_template("index.html", ids=all_ids, titles=all_titles,
                            articles=all_articles, sources=all_sources, dates=all_dates,
                            joke=JOKE, fact=FACT, quote=QUOTE, author=AUTHOR,
-                           year=datetime.now().year, total=len(data))
+                           year=datetime.now().year)
 
 
 def short_paragraphs(text, max_length=200):
@@ -100,12 +102,15 @@ def show_article(index):
 def older_articles():
     response = requests.get(f"{API_URL}/api/articles")
     data = sort_acc_to_date(response.json())
+    all_ids = [article["id"] for article in data][7:]
     all_titles = [article["title"] for article in data][7:]
     all_articles = [truncate_text(article["content"]) for article in data][7:]
     all_sources = [article["source"] for article in data][7:]
     all_dates = [article["date"] for article in data][7:]
-    return render_template("older.html", titles=all_titles,
-                           articles=all_articles, sources=all_sources, dates=all_dates, year=datetime.now().year)
+    return render_template("older.html", ids=all_ids,
+                           titles=all_titles, articles=all_articles,
+                           sources=all_sources, dates=all_dates,
+                           year=datetime.now().year)
 
 
 def sort_acc_to_date(data):
