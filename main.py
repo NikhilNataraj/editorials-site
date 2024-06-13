@@ -21,17 +21,7 @@ def truncate_text(text, max_length=195):
     return text if len(text) <= max_length else text[:max_length] + '...'
 
 
-JOKE = "Why don't scientists trust atoms? Because they make up everything!"
-FACT = ("Honey never spoils. Archaeologists have found pots of honey in ancient Egyptian tombs that are "
-        "over 3,000 years old and still perfectly edible.")
-QUOTE = "The only way to do great work is to love what you do."
-AUTHOR = "Steve Jobs"
-
-
-@app.route("/api/cron")
 def fetch_jfq():
-    global JOKE, FACT, QUOTE, AUTHOR
-
     j_api_url = f'{os.getenv("JFQ_API_URL")}/jokes?limit=1'
     api_key = os.getenv("JFQ_API_KEY")
     joke_response = requests.get(j_api_url, headers={'X-Api-Key': api_key})
@@ -49,10 +39,11 @@ def fetch_jfq():
     AUTHOR = quote["author"]
     QUOTE = quote["quote"]
 
+    return {"JOKE": JOKE, "FACT": FACT, "AUTHOR": AUTHOR, "QUOTE": QUOTE}
+
 
 @app.route("/")
 def home():
-    global JOKE, FACT, QUOTE, AUTHOR
     response = requests.get(f"{API_URL}/api/articles")
     data = sort_acc_to_date(response.json())
     all_ids = [article["id"] for article in data][:7]
@@ -61,9 +52,11 @@ def home():
     all_sources = [article["source"] for article in data][:7]
     all_dates = [article["date"] for article in data][:7]
 
+    jfq = fetch_jfq()
+
     return render_template("index.html", ids=all_ids, titles=all_titles,
                            articles=all_articles, sources=all_sources, dates=all_dates,
-                           joke=JOKE, fact=FACT, quote=QUOTE, author=AUTHOR,
+                           joke=jfq["JOKE"], fact=jfq["FACT"], quote=jfq["QUOTE"], author=jfq["AUTHOR"],
                            year=datetime.now().year)
 
 
@@ -126,4 +119,4 @@ def sort_acc_to_date(data):
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run()
