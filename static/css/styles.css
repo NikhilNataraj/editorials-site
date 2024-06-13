@@ -59,6 +59,13 @@
     white-space: normal;
 }
 
+.card-title {
+    width: 27ch;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
 .snippet {
-    padding: 0
+    padding: 1%
 }

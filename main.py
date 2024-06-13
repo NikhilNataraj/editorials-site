@@ -17,7 +17,7 @@ Bootstrap(app)
 API_URL = os.getenv("API_URL")
 
 
-def truncate_text(text, max_length=120):
+def truncate_text(text, max_length=195):
     return text if len(text) <= max_length else text[:max_length] + '...'
 
 
