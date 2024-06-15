@@ -45,10 +45,11 @@ def fetch_jfq():
     }
 
     quote_response = requests.get(os.getenv("QUOTE_API_URL"), headers=headers)
-    print(quote_response.text)
     quote = random.choice(quote_response.json())
-    AUTHOR = quote["author"]
-    QUOTE = quote["text"].split(",")[0]
+    AUTHOR = quote["author"].split(",")[0]
+    if AUTHOR == "type.fit":
+        AUTHOR = "Anonymous"
+    QUOTE = quote["text"]
 
     return {"JOKE": JOKE, "FACT": FACT, "AUTHOR": AUTHOR, "QUOTE": QUOTE}
 
