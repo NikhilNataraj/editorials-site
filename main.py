@@ -1,6 +1,9 @@
 import os
+import random
+
 import nltk
 import requests
+from urllib.parse import urlparse
 from flask import Flask, render_template
 from flask_bootstrap import Bootstrap
 from nltk.tokenize import sent_tokenize
@@ -30,10 +33,22 @@ def fetch_jfq():
     fact = fact_response.json()
     FACT = fact["text"]
 
-    quote_response = requests.get(os.getenv("QUOTE_API_URL"))
-    quote = quote_response.json()["data"][0]
-    AUTHOR = quote["quoteAuthor"]
-    QUOTE = quote["quoteText"]
+    parsed_url = urlparse(os.getenv("QUOTE_API_URL"))
+    host = parsed_url.netloc
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
+        'Accept': 'application/json, text/plain, */*',
+        'Accept-Language': 'en-US,en;q=0.9',
+        'Referer': 'https://www.example.com',
+        'Connection': 'keep-alive',
+        'Host': host,
+    }
+
+    quote_response = requests.get(os.getenv("QUOTE_API_URL"), headers=headers)
+    print(quote_response.text)
+    quote = random.choice(quote_response.json())
+    AUTHOR = quote["author"]
+    QUOTE = quote["text"].split(",")[0]
 
     return {"JOKE": JOKE, "FACT": FACT, "AUTHOR": AUTHOR, "QUOTE": QUOTE}
 
