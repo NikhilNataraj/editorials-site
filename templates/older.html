@@ -13,13 +13,10 @@
 
 <link href="https://getbootstrap.com/docs/5.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 
-
-
-
-    <!-- Custom fonts -->
     <link href="https://fonts.googleapis.com/css?family=Playfair&#43;Display:700,900&amp;display=swap" rel="stylesheet">
-    <!-- Custom styles -->
     <link href="https://getbootstrap.com/docs/5.2/examples/blog/blog.css" rel="stylesheet">
+
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
   </head>
   <body>
 
@@ -56,6 +53,13 @@
         <hr>
       </article>
       {% endfor %}
+
+        <nav class="blog-pagination" aria-label="Pagination">
+        <a class="btn btn-outline-secondary rounded-pill disabled">
+          Older Articles
+        </a>
+        <a class="btn btn-outline-dark rounded-pill" href="{{ url_for('home')}}">Newer Articles</a>
+  </nav>
     </div>
   </div>
 </main>
