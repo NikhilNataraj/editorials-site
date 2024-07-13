@@ -64,9 +64,15 @@
     </button></a>
   </p>
   <p>Copyright © {{ year }}, <a class="text-black fw-bold" href="https://nikhil-natarajan.vercel.app/" >Nikhil Natarajan</a></p>
-  <p>Article Sources:
-    <a class="text-black" href="https://timesofindia.indiatimes.com/blogs/toi-editorials/">The Times of India</a> &
-    <a class="text-black" href="https://www.thehindu.com/opinion/editorial/">The Hindu</a>.</p>
+  <p>Article Source:
+    {% if source == "The Hindu" %}
+          <a class="text-black" href="https://www.thehindu.com/opinion/editorial/">The Hindu</a>
+    {% elif source == "Hindustan Times" %}
+          <a class="text-black" href="https://www.hindustantimes.com/editorials/">Hindustan Times</a>
+    {% else %}
+          <a class="text-black" href="https://timesofindia.indiatimes.com/blogs/toi-editorials/">The Times of India</a>
+    {% endif %}
+  </p>
   <p>Blog built using template by <a class="text-black" href="https://getbootstrap.com/">Bootstrap</a></p>
   <p> Paper icons created by
     <a class="text-black" href="https://www.flaticon.com/free-icons/paper">
