@@ -24,36 +24,6 @@ def truncate_text(text, max_length=100):
     return text if len(text) <= max_length else text[:max_length] + '...'
 
 
-def fetch_jfq():
-    joke_response = requests.get(os.getenv("JOKE_API_URL"))
-    joke = joke_response.json()
-    JOKE = joke["setup"] + "\n" + joke["punchline"]
-
-    fact_response = requests.get(os.getenv("FACT_API_URL"))
-    fact = fact_response.json()
-    FACT = fact["text"]
-
-    parsed_url = urlparse(os.getenv("QUOTE_API_URL"))
-    host = parsed_url.netloc
-    headers = {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
-        'Accept': 'application/json, text/plain, */*',
-        'Accept-Language': 'en-US,en;q=0.9',
-        'Referer': 'https://www.example.com',
-        'Connection': 'keep-alive',
-        'Host': host,
-    }
-
-    quote_response = requests.get(os.getenv("QUOTE_API_URL"), headers=headers)
-    quote = random.choice(quote_response.json())
-    AUTHOR = quote["author"].split(",")[0]
-    if AUTHOR == "type.fit":
-        AUTHOR = "Anonymous"
-    QUOTE = quote["text"]
-
-    return {"JOKE": JOKE, "FACT": FACT, "AUTHOR": AUTHOR, "QUOTE": QUOTE}
-
-
 @app.route("/")
 def home():
     response = requests.get(f"{API_URL}/api/articles")
@@ -64,11 +34,8 @@ def home():
     all_sources = [article["source"] for article in data][:7]
     all_dates = [article["date"] for article in data][:7]
 
-    jfq = fetch_jfq()
-
     return render_template("index.html", ids=all_ids, titles=all_titles,
                            articles=all_articles, sources=all_sources, dates=all_dates,
-                           joke=jfq["JOKE"], fact=jfq["FACT"], quote=jfq["QUOTE"], author=jfq["AUTHOR"],
                            year=datetime.now().year)
 
 
